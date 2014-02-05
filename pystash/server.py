@@ -23,6 +23,7 @@ class Server(object):
 
     def __init__(self, bind_ip='0.0.0.0', tcp_port=DEFAULT_TCP, udp_port=DEFAULT_UDP, redis_host='localhost', redis_port=6379, redis_queue='logstash'):
         self.redis = redis.Redis(redis_host, redis_port)
+        self.redis_queue = redis_queue
         self.formatter = LogstashFormatter()
         self.udp_server = DatagramServer('%s:%s' % (bind_ip, udp_port), self.udp_handle)
         self.tcp_server = StreamServer('%s:%s' % (bind_ip, tcp_port), self.tcp_handle)
@@ -31,7 +32,7 @@ class Server(object):
     def obj_to_redis(self, obj):
         record = logging.makeLogRecord(obj)
         payload = self.formatter.format(record)
-        self.redis.rpush(redis_queue, payload)
+        self.redis.rpush(self.redis_queue, payload)
 
     def udp_handle(self, data, address):
         slen = struct.unpack('>L', data[:4])[0]

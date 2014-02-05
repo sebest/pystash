@@ -59,7 +59,7 @@ class LogstashFormatter(logging.Formatter):
             self.source_host = self._fmt['source_host']
         else:
             try:
-                self.source_host = socket.gethostname()
+                self.source_host = socket.getfqdn()
             except:
                 self.source_host = ""
 

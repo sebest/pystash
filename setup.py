@@ -31,7 +31,6 @@ setup(
     package_dir={'pystash': 'pystash'},
     include_package_data=True,
     install_requires=[
-        'logstash_formatter',
         'redis',
         'gevent',
     ],

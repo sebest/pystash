@@ -8,7 +8,7 @@ XS-Python-Version: current
 
 Package: python-pystash
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-redis (>= 2.4), python-gevent (>= 1.0), python-logstash-formatter
+Depends: ${misc:Depends}, ${python:Depends}, python-redis (>= 2.4), python-gevent (>= 1.0)
 XB-Python-Version: ${python:Versions}
 Provides: ${python:Provides}
 Description: A proxy for python logging UDP/TCP to logstash/redis

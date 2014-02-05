@@ -10,7 +10,7 @@ import logging
 import logging.handlers
 import gevent
 from gevent.server import DatagramServer, StreamServer
-from logstash_formatter import LogstashFormatter
+from .formatter import LogstashFormatter
 
 DEFAULT_UDP = logging.handlers.DEFAULT_UDP_LOGGING_PORT
 DEFAULT_TCP = logging.handlers.DEFAULT_TCP_LOGGING_PORT

@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 class Server(object):
 
-    def __init__(self, bind_ip='0.0.0.0', tcp_port=DEFAULT_TCP, udp_port=DEFAULT_UDP, redis_host='localhost', redis_port=6379, redis_queue='logstash'):
+    def __init__(self, bind_ip='127.0.0.1', tcp_port=DEFAULT_TCP, udp_port=DEFAULT_UDP, redis_host='localhost', redis_port=6379, redis_queue='logstash'):
         self.redis = redis.Redis(redis_host, redis_port)
         self.redis_queue = redis_queue
         self.formatter = LogstashFormatter()

@@ -2,13 +2,11 @@ Source: pystash
 Maintainer: Sebastien Estienne <sebastien.estienne@gmail.com>
 Section: python
 Priority: optional
-Build-Depends: python-setuptools (>= 0.6b3), debhelper (>= 7), python-support (>= 0.8.4)
-Standards-Version: 3.8.4
-XS-Python-Version: current
+Build-Depends: python-setuptools (>= 0.6b3), python-all (>= 2.6.6-3), debhelper (>= 7.4.3)
+Standards-Version: 3.9.1
 
 Package: python-pystash
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-redis (>= 2.4), python-gevent (>= 1.0)
-XB-Python-Version: ${python:Versions}
-Provides: ${python:Provides}
+Depends: ${misc:Depends}, ${python:Depends}, python-redis (>= 2.4), python-gevent (>= 0.9)
 Description: A proxy for python logging UDP/TCP to logstash/redis
+

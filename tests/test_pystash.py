@@ -10,7 +10,7 @@ Tests for `pystash` module.
 
 import unittest
 
-from pystash import pystash
+import pystash
 
 
 class TestPystash(unittest.TestCase):

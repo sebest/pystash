@@ -19,7 +19,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='pystash',
-    version='0.2',
+    version='0.3',
     description='A proxy for python logging UDP/TCP to logstash/redis',
     long_description=readme + '\n\n' + history,
     author='Sebastien Estienne',

@@ -1,3 +1,9 @@
+pystash (0.3-1~precise1) precise-dc; urgency=low
+
+  * Add more options
+
+ -- Sebastien Estienne <sebastien.estienne@gmail.com>  Thu, 06 Feb 2014 12:37:30 +0100
+
 pystash (0.2-1~precise1) precise-dc; urgency=low
 
   * New logstash event format

@@ -36,7 +36,10 @@ class Server(object):
         record = logging.makeLogRecord(obj)
         payload = self.formatter.format(record)
         #logger.debug('message %s', payload)
-        self.redis.rpush(self.redis_queue, payload)
+        try:
+            self.redis.rpush(self.redis_queue, payload)
+        except redis.InvalidResponse, e:
+            logging.error('Redis error: %s' % e)
 
     def udp_handle(self, data, address):
         slen = struct.unpack('>L', data[:4])[0]

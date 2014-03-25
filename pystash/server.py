@@ -43,7 +43,12 @@ class Server(object):
 
     def udp_handle(self, data, address):
         slen = struct.unpack('>L', data[:4])[0]
-        obj = cPickle.loads(data[4:slen+4])
+        chunk = data[4:slen+4]
+        try:
+            obj = cPickle.loads(chunk)
+        except EOFError:
+            logging.error('UDP: invalid data to pickle %s', chunk)
+            return
         self.obj_to_redis(obj)
 
     def tcp_handle(self, socket, address):
@@ -57,7 +62,11 @@ class Server(object):
             while len(chunk) < slen:
                 chunk = chunk + fileobj.read(slen - len(chunk))
             fileobj.flush()
-            obj = self.unPickle(chunk)
+            try:
+                obj = self.unPickle(chunk)
+            except EOFError:
+                logging.error('TCP: invalid data to pickle %s', chunk)
+                break
             self.obj_to_redis(obj)
 
     def start(self):

@@ -1,3 +1,9 @@
+pystash (0.4-1~precise1) precise-dc; urgency=low
+
+  * Catch pickle/redis errors
+
+ -- Sebastien Estienne <sebastien.estienne@gmail.com>  Thu, 20 Mar 2014 21:56:43 +0100
+
 pystash (0.3-1~precise1) precise-dc; urgency=low
 
   * Add more options

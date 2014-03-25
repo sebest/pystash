@@ -1,3 +1,9 @@
+pystash (0.5-1~precise1) precise-dc; urgency=low
+
+  * Improve logging of message without formatting and exceptions
+
+ -- Sebastien Estienne <sebastien.estienne@gmail.com>  Tue, 25 Mar 2014 19:29:07 +0100
+
 pystash (0.4-1~precise1) precise-dc; urgency=low
 
   * Catch pickle/redis errors

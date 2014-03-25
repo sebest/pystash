@@ -8,8 +8,11 @@ import struct
 import redis
 import logging
 import logging.handlers
+import _socket
 import gevent
 from gevent.server import DatagramServer, StreamServer
+from gevent.socket import EWOULDBLOCK
+
 from . import formatter
 
 DEFAULT_UDP = logging.handlers.DEFAULT_UDP_LOGGING_PORT
@@ -18,6 +21,16 @@ DEFAULT_TCP = logging.handlers.DEFAULT_TCP_LOGGING_PORT
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+class DatagramServer(DatagramServer):
+
+    def do_read(self):
+        try:
+            data, address = self._socket.recvfrom(65536)
+        except _socket.error, err:
+            if err[0] == EWOULDBLOCK:
+                return
+            raise
+        return data, address
 
 class Server(object):
 
@@ -38,8 +51,8 @@ class Server(object):
         #logger.debug('message %s', payload)
         try:
             self.redis.rpush(self.redis_queue, payload)
-        except redis.InvalidResponse, e:
-            logging.error('Redis error: %s' % e)
+        except redis.RedisError as exc:
+            logging.error('Redis error: %s' % exc)
 
     def udp_handle(self, data, address):
         slen = struct.unpack('>L', data[:4])[0]
@@ -63,7 +76,7 @@ class Server(object):
                 chunk = chunk + fileobj.read(slen - len(chunk))
             fileobj.flush()
             try:
-                obj = self.unPickle(chunk)
+                obj = cPickle.loads(chunk)
             except EOFError:
                 logging.error('TCP: invalid data to pickle %s', chunk)
                 break
